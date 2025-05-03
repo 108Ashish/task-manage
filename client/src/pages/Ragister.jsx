@@ -22,7 +22,7 @@ const Ragister = () => {  // Changed to match file name
     try {
         const res = await axios.post('http://localhost:1000/api/v1/register', values)
         alert('Registration successful', res.data.success)
-        navigate('/login'); // Redirect to login after successful registration
+        navigate('/login'); 
     } catch (error) {
       console.error(error.response?.data || 'Registration failed')
     }

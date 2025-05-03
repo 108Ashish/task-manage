@@ -116,4 +116,4 @@ const AddTask = ({ setAddTaskDiv, onTaskAdded }) => {
   );
 };
 
-export default AddTask;
+export default AddTask; 

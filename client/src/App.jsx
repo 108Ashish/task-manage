@@ -21,7 +21,7 @@ useEffect(() => {
     <Route path="/" element={<Ragister />} /> 
     <Route path="/login" element={<Login />} /> 
     <Route path="/dashboard" element={<Dashboard />} />
-    {/* You can replace Ragister with the actual Login component when you create it */}
+   
     </Routes>
     </>
   )
