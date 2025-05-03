@@ -1,77 +1,71 @@
-A full-stack task management application that allows users to create, manage, and track their tasks based on priority and status. Built using React, Node.js, Express, and MongoDB, with secure user authentication and dynamic task views.
+✅ Task Management System
+A modern full-stack Task Management System that helps users organize, manage, and track their tasks by priority and status.
 
-🚀 Features
+🌐 Live Links
+🔗 Frontend (Vercel): https://your-taskmanager-frontend.vercel.app
+🔗 Backend (Render): https://your-taskmanager-backend.onrender.com
 
-✅ User Authentication (Login & Logout)
+📸 Features
+📝 Add, edit, and manage tasks effortlessly
+🚦 Categorize tasks by priority (Low, Medium, High) and status (Pending, In Progress, Completed)
+🔐 Secure user authentication with session cookies
+📊 Dashboard view with separated columns for each task status
+🌓 Clean and responsive design using Tailwind CSS
+☁️ Deployed on Vercel (frontend) and Render (backend)
 
-📝 Add, View, and Manage Tasks
-
-🧠 Task Categorization: Pending, In Progress, Completed
-
-🔽 Priority & Status Dropdowns
-
-📦 Persistent User Sessions via Cookies
-
-🎯 Responsive UI built with Tailwind CSS
-
-📁 Tech Stack
-Frontend
+🛠️ Tech Stack
+🖥️ Frontend
 React.js
-
-Axios
 
 Tailwind CSS
 
+Axios
+
 React Icons
 
-React Router
+React Router DOM
 
-Backend
+🖧 Backend
 Node.js
 
 Express.js
 
-MongoDB (Mongoose)
+MongoDB (MongoDB Atlas)
 
-Cookie-parser
+Mongoose
+
+Cookie-Parser
 
 CORS
 
-🛠️ Installation
+Deployed on Render
+
+🚀 Getting Started Locally
 1. Clone the Repository
-   
 bash
 Copy
 Edit
-git clone https://github.com/your-username/task-manager.git
-cd task-manager
-
+git clone https://github.com/108Ashish/task-management-system.git
+cd task-management-system
 2. Setup Backend
 bash
 Copy
 Edit
-cd backend
+cd server
 npm install
-Create a .env file and add:
+npm run dev
+Create a .env file inside server/:
 
 env
 Copy
 Edit
 PORT=1000
-MONGO_URI=your_mongodb_connection_string
+MONGO_URI=your_mongodb_atlas_uri
 NODE_ENV=development
-Run the server:
-
-bash
-Copy
-Edit
-npm start
-
-
 3. Setup Frontend
 bash
 Copy
 Edit
-cd frontend
+cd client
 npm install
 npm run dev
