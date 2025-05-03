@@ -22,7 +22,7 @@ const addtask = async (req, res) => {
         return res.status(400).json({error:"Please fill all the fields"});
     }
     
-    // Create task with all user details
+    
     const newTask = new Task({
         title,
         description,
@@ -35,11 +35,11 @@ const addtask = async (req, res) => {
     
     console.log("New task object:", newTask);
     
-    // Save task first
+    
     const savedTask = await newTask.save();
     console.log("Task saved:", savedTask);
     
-    // Update user with tasks array check
+   
     if (!Array.isArray(user.tasks)) {
         user.tasks = [];
     }
@@ -63,7 +63,7 @@ const edittask = async (req, res) => {
     try{
         const {id}=req.params;
      const { title, description, priority, status } = req.body;
-     //const{user}=req.user;
+    
      if(!title || !description ){
          return res.status(400).json({error:"Please fill all the fields"})
      }
@@ -112,10 +112,8 @@ const getAllTasks = async (req, res) => {
             return res.status(401).json({error:"Authentication required"});
         }
         
-        // Find all tasks for this user
         const allTasks = await Task.find({ user: user._id }).sort({ createdAt: -1 });
-        
-        // Categorize tasks by status
+      
         const pendingTasks = allTasks.filter(task => task.status === 'pending');
         const inProgressTasks = allTasks.filter(task => task.status === 'in-progress');
         const completedTasks = allTasks.filter(task => task.status === 'completed');
@@ -126,7 +124,7 @@ const getAllTasks = async (req, res) => {
             completed: completedTasks.length
         });
         
-        console.log("First pending task:", pendingTasks[0]); // Show a sample task
+        console.log("First pending task:", pendingTasks[0]); 
 
         res.status(200).json({
             success: true,
@@ -159,7 +157,7 @@ catch (error) {
 module.exports = {
     addtask,
     gettask,
-    getAllTasks, // New export
+    getAllTasks,
     edittask,
     deletetask
 };

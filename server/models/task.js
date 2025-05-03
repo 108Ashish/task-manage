@@ -38,7 +38,7 @@ const taskSchema = new Schema({
     }
 }, { timestamps: true });
 
-// ✅ Use existing model if it exists, else create a new one
+
 const Task = mongoose.models.Task || mongoose.model("Task", taskSchema);
 
 module.exports = Task;

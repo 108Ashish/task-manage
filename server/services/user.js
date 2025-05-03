@@ -29,7 +29,7 @@ const register = async (req, res) => {
             username, 
             email, 
             password: hashedPassword,
-            tasks: [] // Initialize tasks array
+            tasks: [] 
         });
         await newUser.save();
 
@@ -69,8 +69,8 @@ const login = async (req, res) => {
             httpOnly: true,
             maxAge: 30 * 24 * 60 * 60 * 1000,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "Lax",  // Change from "None" to "Lax" for development
-            path: "/"  // Add this
+            sameSite: "Lax",  
+            path: "/"  
         });
 
         return res.status(200).json({
@@ -88,8 +88,7 @@ const logout = async (req, res) => {
     try {
       res.clearCookie("taskmanager", {
         httpOnly: true,
-         // true in prod only
-        // allow cross-site cookie clearing
+         
       });
   
       return res.status(200).json({ success: true, message: "Logout successful" });
@@ -135,10 +134,10 @@ const getUserDetails = async (req, res) => {
             return res.status(401).json({ error: "Authentication required" });
         }
         
-        // Find user and populate the tasks array with full task documents
+       
         const userWithTasks = await User.findById(user._id)
             .populate('tasks')
-            .select('-password');  // Exclude password from the response
+            .select('-password');  
             
         res.status(200).json({ 
             success: true,
@@ -150,7 +149,7 @@ const getUserDetails = async (req, res) => {
     }
 };
 
-// Export both functions
+
 module.exports = {
     register,
     login,
