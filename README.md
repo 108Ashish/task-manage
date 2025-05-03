@@ -1,19 +1,27 @@
 ✅ Task Management System
+
 A modern full-stack Task Management System that helps users organize, manage, and track their tasks by priority and status.
 
 🌐 Live Links
-🔗 Frontend (Vercel): https://your-taskmanager-frontend.vercel.app
-🔗 Backend (Render): https://your-taskmanager-backend.onrender.com
+🔗 Frontend (Vercel): 
+🔗 Backend (Render): 
 
 📸 Features
+
 📝 Add, edit, and manage tasks effortlessly
+
 🚦 Categorize tasks by priority (Low, Medium, High) and status (Pending, In Progress, Completed)
+
 🔐 Secure user authentication with session cookies
+
 📊 Dashboard view with separated columns for each task status
+
 🌓 Clean and responsive design using Tailwind CSS
+
 ☁️ Deployed on Vercel (frontend) and Render (backend)
 
 🛠️ Tech Stack
+
 🖥️ Frontend
 React.js
 
