@@ -1,6 +1,7 @@
 A full-stack task management application that allows users to create, manage, and track their tasks based on priority and status. Built using React, Node.js, Express, and MongoDB, with secure user authentication and dynamic task views.
 
 🚀 Features
+
 ✅ User Authentication (Login & Logout)
 
 📝 Add, View, and Manage Tasks
@@ -38,11 +39,13 @@ CORS
 
 🛠️ Installation
 1. Clone the Repository
+   
 bash
 Copy
 Edit
 git clone https://github.com/your-username/task-manager.git
 cd task-manager
+
 2. Setup Backend
 bash
 Copy
@@ -63,6 +66,8 @@ bash
 Copy
 Edit
 npm start
+
+
 3. Setup Frontend
 bash
 Copy
