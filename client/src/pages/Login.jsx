@@ -19,16 +19,18 @@ const [values, setValues] = useState({
   const handleLogin = async (e) => {
     e.preventDefault()
     try {
-        const res = await axios.post('http://localhost:1000/api/v1/login', values,
+        const res = await axios.post(`${import.meta.env.VITE_API}/api/v1/login`, values,
             {
                 withCredentials: true,
 
             }
         );
         if (res.status === 200) {
+            console.log(res.data);
             localStorage.setItem("userLoggedIn", "yes");
             navigate('/dashboard');
           } else {
+            console.log(res.data);
             console.error("Login failed:", res.data);
           }} catch (error) {
       console.error(error.response?.data || 'Registration failed')

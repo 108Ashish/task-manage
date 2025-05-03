@@ -24,7 +24,7 @@ const Dashboard = () => {
         return;
       }
 
-      const res = await axios.get('http://localhost:1000/api/v1/alltasks', {
+      const res = await axios.get(`${import.meta.env.VITE_API}/api/v1/alltasks`, {
         withCredentials: true
       });
 
@@ -38,8 +38,8 @@ const Dashboard = () => {
     } catch (error) {
       console.error("Error fetching tasks:", error);
       if (error.response?.status === 401) {
-        localStorage.removeItem("userLoggedIn");
-        navigate('/login');
+        // localStorage.removeItem("userLoggedIn");
+        // navigate('/login');
       }
     }
   };

@@ -17,7 +17,7 @@ const AddTask = ({ setAddTaskDiv, onTaskAdded }) => {
   const addTask = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:1000/api/v1/addtask", value, {
+      const res = await axios.post(`${import.meta.env.VITE_API}/api/v1/addtask`, value, {
         withCredentials: true
       });
       
