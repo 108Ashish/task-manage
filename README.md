@@ -53,7 +53,7 @@ Deployed on Render
 bash
 Copy
 Edit
-git clone https://github.com/108Ashish/task-management-system.git
+git clone (https://github.com/108Ashish/task-manage.git)
 cd task-management-system
 2. Setup Backend
 bash
