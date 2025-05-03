@@ -6,7 +6,6 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const userapi = require("./controller/user");
 const taskapi = require("./controller/task");
-const { addtask } = require("./services/task");
 
 app.use(express.json());
 
@@ -14,9 +13,9 @@ app.use(cors({
   origin: true,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
-
-app.options('*', cors());
 
 app.use(cookieParser()); 
 
@@ -24,10 +23,15 @@ app.get("/", (req, res) => {
     res.send("Hello World");
 })
 
-// api's
 app.use("/api/v1", userapi);
 app.use("/api/v1", taskapi);
 
-app.listen(`${process.env.PORT}`, () => {
-    console.log("Server is running on port 1000");
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Internal server error" });
+});
+
+const PORT = process.env.PORT || 1000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });

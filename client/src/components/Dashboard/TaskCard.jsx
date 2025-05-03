@@ -6,7 +6,7 @@ const TaskCard = ({ task, onTaskChanged }) => {
     
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:1000/api/v1/deletetask/${task._id}`, {
+            await axios.delete(`${import.meta.env.VITE_API}/api/v1/deletetask/${task._id}`, {
                 withCredentials: true
             });
             alert('Task deleted successfully');
@@ -19,7 +19,7 @@ const TaskCard = ({ task, onTaskChanged }) => {
 
     const handleStatusChange = async (newStatus) => {
         try {
-            await axios.put(`http://localhost:1000/api/v1/edittask/${task._id}`, 
+            await axios.put(`${import.meta.env.VITE_API}/api/v1/edittask/${task._id}`, 
                 { ...task, status: newStatus },
                 { withCredentials: true }
             );
