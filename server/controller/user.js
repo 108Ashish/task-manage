@@ -1,5 +1,5 @@
 const routre = require('express').Router();
-const authMiddleware = require('../middleware/authMiddleware');
+const authMiddleware = require('../middleware/authmiddleware');
 const {register, login, logout, userDetails} = require('../services/user');
 
 routre.post('/register', register);
