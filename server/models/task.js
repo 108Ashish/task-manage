@@ -22,8 +22,21 @@ const taskSchema = new Schema({
         required: true,
         enum: ['pending', 'in-progress', 'completed'],
         default: 'pending'
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    username: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
     }
-});
+}, { timestamps: true });
 
 // ✅ Use existing model if it exists, else create a new one
 const Task = mongoose.models.Task || mongoose.model("Task", taskSchema);

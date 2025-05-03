@@ -25,7 +25,12 @@ const register = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ username, email, password: hashedPassword });
+        const newUser = new User({ 
+            username, 
+            email, 
+            password: hashedPassword,
+            tasks: [] // Initialize tasks array
+        });
         await newUser.save();
 
         res.status(201).json({ success: "User registered successfully", user: newUser });
@@ -62,9 +67,10 @@ const login = async (req, res) => {
 
         res.cookie("taskmanager", token, {
             httpOnly: true,
-            maxAge: 30 * 24 * 60 * 60 * 1000, 
-            secure: process.env.NODE_ENV === "production", // true in prod only
-            sameSite: "None", // allow cross-site cookie
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "Lax",  // Change from "None" to "Lax" for development
+            path: "/"  // Add this
         });
 
         return res.status(200).json({
@@ -121,10 +127,34 @@ const userDetails = async (req, res) => {
         return res.status(500).json({ error: "Internal server error" });
     }
 };
+
+const getUserDetails = async (req, res) => {
+    try {
+        const { user } = req;
+        if (!user) {
+            return res.status(401).json({ error: "Authentication required" });
+        }
+        
+        // Find user and populate the tasks array with full task documents
+        const userWithTasks = await User.findById(user._id)
+            .populate('tasks')
+            .select('-password');  // Exclude password from the response
+            
+        res.status(200).json({ 
+            success: true,
+            user: userWithTasks
+        });
+    } catch (error) {
+        console.error("Error fetching user details:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
 // Export both functions
 module.exports = {
     register,
     login,
     logout,
     userDetails,
+    getUserDetails
 };

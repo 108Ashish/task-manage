@@ -22,13 +22,15 @@ const addtask = async (req, res) => {
         return res.status(400).json({error:"Please fill all the fields"});
     }
     
-    // Create task without trying to save it first
+    // Create task with all user details
     const newTask = new Task({
         title,
         description,
         priority: priority || 'low',
         status: status || 'pending',
-        user: user._id
+        user: user._id,
+        username: user.username,
+        email: user.email
     });
     
     console.log("New task object:", newTask);
@@ -44,15 +46,14 @@ const addtask = async (req, res) => {
     
     user.tasks.push(savedTask._id);
     await user.save();
-    console.log("User updated with task");
     
     res.status(201).json({success:"Task added successfully", task: savedTask});
 
    } catch(err) {
     console.error("Error adding task:", err);
-    return res.status(500).json({error: err.message || "Internal server error"});
+    return res.status(500).json({error:"Internal server error"})
    }
-}
+};
 
 // edit task
 
@@ -101,6 +102,46 @@ catch (error) {
         return res.status(500).json({ error: "Internal server error" });
     }
 }
+
+// get all tasks
+const getAllTasks = async (req, res) => {
+    try {
+        const { user } = req;
+        
+        if(!user) {
+            return res.status(401).json({error:"Authentication required"});
+        }
+        
+        // Find all tasks for this user
+        const allTasks = await Task.find({ user: user._id }).sort({ createdAt: -1 });
+        
+        // Categorize tasks by status
+        const pendingTasks = allTasks.filter(task => task.status === 'pending');
+        const inProgressTasks = allTasks.filter(task => task.status === 'in-progress');
+        const completedTasks = allTasks.filter(task => task.status === 'completed');
+        
+        console.log("Tasks found:", {
+            pending: pendingTasks.length,
+            inProgress: inProgressTasks.length,
+            completed: completedTasks.length
+        });
+        
+        console.log("First pending task:", pendingTasks[0]); // Show a sample task
+
+        res.status(200).json({
+            success: true,
+            tasks: {
+                pending: pendingTasks,
+                inProgress: inProgressTasks,
+                completed: completedTasks
+            }
+        });
+    } catch (error) {
+        console.error("Error fetching tasks:", error);
+        res.status(500).json({error:"Internal server error"});
+    }
+};
+
 // delete task
 
 const deletetask = async (req, res) => {
@@ -117,7 +158,8 @@ catch (error) {
 
 module.exports = {
     addtask,
-    edittask,
     gettask,
+    getAllTasks, // New export
+    edittask,
     deletetask
-    };
+};

@@ -4,7 +4,7 @@ const User = require("../models/user");
 const authMiddleware = async (req, res, next) => {
   const token = req.cookies.taskmanager;
 
-try{
+  try {
     if(!token) {
         return res.status(401).json({ error: "new-user" });
     }
@@ -14,14 +14,13 @@ try{
     if(!user) {
         return res.status(401).json({ message: "user-not-found" });
     }
+    
     req.user = user;
     next();
-
-}
-catch(error) {
+  } catch(error) {
+    console.error("Auth middleware error:", error);
     res.status(401).json({ message: "invalid-token" });
-}
-
+  }
 };
 
 module.exports = authMiddleware;

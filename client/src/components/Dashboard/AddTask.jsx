@@ -1,29 +1,49 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-const AddTask = ({ setAddTaskDiv }) => {
-const [value, setValue] = useState({
-  title: '',
-  priority: 'low',
-  status: 'pending',
-  description: '',
-});
-const change = (e) => {
+
+const AddTask = ({ setAddTaskDiv, onTaskAdded }) => {
+  const [value, setValue] = useState({
+    title: '',
+    priority: 'low',
+    status: 'pending',
+    description: '',
+  });
+
+  const change = (e) => {
     const { name, value: inputValue } = e.target;
     setValue(prevState => ({ ...prevState, [name]: inputValue }));
   };
-const addTask=async (e) => {
-  e.preventDefault();
-  try {
-    const res =await axios.post("http://localhost:1000/api/v1/addtask", value,{
+
+  const addTask = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:1000/api/v1/addtask", value, {
         withCredentials: true
       });
       
-    console.log(res.data);
-    
-  } catch (error) {
-   alert(error.response.data.error);
-  }
-};      
+      console.log(res.data);
+      alert('Task added successfully!');
+      setAddTaskDiv('hidden');
+      
+      // Reset form
+      setValue({
+        title: '',
+        priority: 'low',
+        status: 'pending',
+        description: '',
+      });
+      
+      // Call the callback to refresh the task list
+      if (onTaskAdded) {
+        onTaskAdded();
+      }
+      
+    } catch (error) {
+      console.error("Error adding task:", error);
+      alert(error.response?.data?.error || 'Failed to add task');
+    }
+  };
+  
   return (
     <div className="bg-white rounded px-4 py-4 w-[40%] mx-auto mt-8 shadow-lg">
       <h1 className="text-xl text-blue-800 font-semibold">Add Task</h1>
@@ -33,7 +53,7 @@ const addTask=async (e) => {
         <input
           type="text"
           name="title"
-            value={value.title}
+          value={value.title}
           placeholder="Title"
           className="border rounded-lg px-4 py-2 border-zinc-300 w-full outline-none focus:border-blue-500"
           onChange={change}
@@ -69,7 +89,7 @@ const addTask=async (e) => {
 
         <textarea
           name="description"
-        value={value.description}
+          value={value.description}
           placeholder="Description"
           className="border rounded-lg px-4 py-2 border-zinc-300 w-full outline-none focus:border-blue-500"
           onChange={change}

@@ -1,13 +1,12 @@
 const express = require("express");
-const router = express.Router(); // ✅ lowercase
-
+const router = express.Router();
 const authMiddleware = require("../middleware/authMiddleware");
-const { addtask, edittask, gettask, deletetask } = require("../services/task");
+const { addtask, edittask, gettask, deletetask, getAllTasks } = require("../services/task");
 
 router.post("/addtask", authMiddleware, addtask);
-router.post("/edittask/:id", authMiddleware, edittask);
-router.post("/gettask/:id", authMiddleware, gettask);
-router.post("/deletetask/:id", authMiddleware, deletetask);
+router.get("/alltasks", authMiddleware, getAllTasks); // New route
+router.get("/gettask/:id", authMiddleware, gettask);
+router.put("/edittask/:id", authMiddleware, edittask);
+router.delete("/deletetask/:id", authMiddleware, deletetask);
 
 module.exports = router;
- 
