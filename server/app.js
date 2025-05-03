@@ -13,22 +13,22 @@ app.use(cors({
   origin: true,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
-
-app.options('*', cors());
 
 app.use(cookieParser()); 
 
 app.get("/", (req, res) => {
     res.send("Hello World");
-});
+})
 
 app.use("/api/v1", userapi);
 app.use("/api/v1", taskapi);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).json({ error: "Internal server error" });
 });
 
 const PORT = process.env.PORT || 1000;
